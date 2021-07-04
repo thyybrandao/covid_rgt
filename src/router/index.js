@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home/Home.vue'
+import Sobre from '../views/Sobre/Sobre.vue'
+import Decreto from '../views/Decreto/Decreto.vue'
+import Telefone from '../views/Telefone/Telefone.vue'
+import Vacinacao from '../views/Vacinacao/Vacinacao.vue'
 //import About from '../views/About.vue'
 import { auth } from './../services/firebase'
 
@@ -12,26 +16,26 @@ const routes = [
     name: 'Home',
     component: Home,
   },
-  // {
-  //   path: '/coronavirus',
-  //   name: 'Home',
-  //   component: Home,
-  // },
-  // {
-  //   path: '/vacinacao',
-  //   name: 'Home',
-  //   component: Home,
-  // },
-  // {
-  //   path: '/telefones',
-  //   name: 'Home',
-  //   component: Home,
-  // },
-  // {
-  //   path: '/decretos',
-  //   name: 'Home',
-  //   component: Home,
-  // },
+  {
+    path: '/coronavirus',
+    name: 'Sobre',
+    component: Sobre,
+  },
+  {
+    path: '/vacinacao',
+    name: 'Vacinacao',
+    component: Vacinacao,
+  },
+  {
+    path: '/telefones',
+    name: 'Telefone',
+    component: Telefone,
+  },
+  {
+    path: '/decretos',
+    name: 'Decreto',
+    component: Decreto,
+  },
   // {
   //   path: '/login',
   //   name: 'About',

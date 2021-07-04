@@ -14,42 +14,58 @@
           </h2>
         </div>
         <div id="main-content-action">
-          <div id="btn-about-plus">Saiba mais</div>
-          <div id="btn-watch-video">Assista o vídeo</div>
+          <div id="btn-about-plus" @click="saibaMais">Saiba mais</div>
+          <div id="btn-watch-video" @click="video">Assista o vídeo</div>
         </div>
 
         <div id="main-content-covid">
-          <p>Atualizado em {{updateAt}}</p>
+          <p>Atualizado em {{ updateAt }}</p>
 
           <div id="main-content-covid-get">
             <CovidData
               title="Confirmados"
               v-bind:data="this.situationData.confirmed"
               today="8"
-              yellow=true
+              yellow="true"
             />
             <CovidData
               title="Mortes"
               v-bind:data="this.situationData.deaths"
               today="8"
-              red='true'
+              red="true"
             />
             <CovidData
               title="Recuperados"
               v-bind:data="this.situationData.recovered"
               today="8"
-              green=true
+              green="true"
             />
             <CovidData
               title="Vacinados"
               v-bind:data="this.situationData.vaccinated"
               today="8"
-              cyan=true
+              cyan="true"
             />
           </div>
         </div>
       </div>
     </main>
+    <SweetModal
+      overlay-theme="dark"
+      ref="video"
+      title="Campanha contra a Covid-19"
+      width="40%"
+    >
+      <iframe
+        width="100%"
+        height="315"
+        src="https://www.youtube.com/embed/D2zESBXbauA"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </SweetModal>
   </div>
 </template>
 
@@ -58,10 +74,11 @@
 
 import { situationCollection } from '../../services/firebase'
 import { format } from 'date-fns'
+import { SweetModal } from 'sweet-modal-vue'
 import CovidData from './components/CovidData'
 export default {
   name: 'Home',
-  components: { CovidData },
+  components: { CovidData, SweetModal },
   data() {
     return {
       situationData: {},
@@ -78,7 +95,29 @@ export default {
         var getDate = Date.now()
         this.situationData = doc.data()
         this.updateAt = format(getDate, 'dd/MM/yyyy - HH:mm')
+
+        if (Notification.permission === 'granted') {
+          const notification = new Notification('Prefeitura de Registro', {
+            body: 'Dados sobre a covid-19 atualizados',
+            icon: 'http://www.registro.sp.gov.br/images/logo-brasao-n.png',
+          })
+
+          notification.onclick = function (event) {
+            event.preventDefault()
+            window.focus()
+            notification.close()
+            window.open('http://localhost:8081/', '_blank')
+          }
+
+          notification.close()
+        }
       })
+    },
+    video: function () {
+      this.$refs.video.open()
+    },
+    saibaMais: function () {
+      this.$router.push('/coronavirus')
     },
   },
 }

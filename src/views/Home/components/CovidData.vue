@@ -1,9 +1,13 @@
 <template>
-  <div id="main-content-covid-data">
-    <p class="data-title">{{ title }}</p>
-    <p :class="`data-value {{this.colorText}} `">{{ data }}</p>
-    <p class="data-today"><span>HOJE:</span> {{ today }}</p>
-  </div>
+  <v-container>
+    <b-col align-v="center">
+      <div id="main-content-covid-data">
+        <p class="data-title">{{ title }}</p>
+        <p :class="`data-value {{this.colorText}} `">{{ data }}</p>
+        <p class="data-today"><span>HOJE:</span> {{ today }}</p>
+      </div>
+    </b-col>
+  </v-container>
 </template>
 
 <script>
@@ -75,7 +79,7 @@ export default {
   font-weight: 400;
 }
 
-#main-content-covid-data .data-today span{
+#main-content-covid-data .data-today span {
   color: #ffffff;
   font-size: 12px;
   font-weight: 400;
