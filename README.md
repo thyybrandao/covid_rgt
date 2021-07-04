@@ -1,5 +1,8 @@
 # covid
 
+# Imagens de tela
+(https://github.com/thyybrandao/covid_rgt/blob/master/print/drcretos.PNG)
+
 ## Project setup
 ```
 yarn install
